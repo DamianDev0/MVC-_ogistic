@@ -15,6 +15,17 @@ export async function getShipments() {
   }
 }
 
+export async function getShipmentsByid(shipment){
+  try {
+    const [shipmentGet] = await pool.query("SELECT * FROM shipments WHERE id =?", [shipment]);
+    return shipmentGet
+
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error while checking shipment existence.");
+  }
+}
+
 export async function createdshipment(shipment) {
   try {
 

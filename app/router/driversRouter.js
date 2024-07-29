@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { getAllDrivers, createdDriverRequest,getDriver } from "../controllers/driversController.js";
+import { getAllDrivers, createdDriverRequest,getDriverRequest } from "../controllers/driversController.js";
 
 const driversRoutes = Router()
 
 //obtner todos los drives
 
 driversRoutes.get('/', getAllDrivers)
-driversRoutes.get('/:id', getDriver)
+driversRoutes.get('/:id', getDriverRequest)
 driversRoutes.post('/', createdDriverRequest)
 
 

@@ -28,7 +28,7 @@ export const createdDriverRequest = async (req, res) => {
 };
 
 
-export const getDriver = async (req, res) => {
+export const getDriverRequest = async (req, res) => {
   const { id } = req.params;
   try {
     const [driverFound] = await findDriver(id);
