@@ -2,6 +2,7 @@ import {
   getShipments,
   createdshipment,
   getShipmentsByid,
+  deleteShipment
 } from "../models/shipmentsModel.js";
 
 export const getAllShipments = async (_, res) => {
@@ -48,3 +49,18 @@ export const createdShipmentRequest = async (req, res) => {
     });
   } catch (error) {}
 };
+
+export const deleteShipmentRequest = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deleted = await deleteShipment(id);
+    
+    if (!deleted) {
+      return res.status(404).json({ message: "Shipment not found" });
+    }
+    res.status(200).json({ message: "Shipment deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+}

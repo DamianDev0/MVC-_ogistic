@@ -21,19 +21,36 @@ export async function createdVehicle(vehicle){
       throw new Error("Driver not found")
     }
 
-    const vehicleCreated = await pool.query(
+    const [result] = await pool.query(
       "INSERT INTO vehicles (model,year,driver_id) VALUES (?, ?, ?)",
       [vehicle.model, vehicle.year, vehicle.driver_id]
     );
 
-    return vehicleCreated;
+    const newVehicleId = result.insertId
 
+    const [newVehicle] = await pool.query('SELECT * FROM vehicles WHERE id = ?', [newVehicleId])
+
+    return newVehicle[0]
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({
-      error: error.sqlMessage,
-      errno: error.errno,
-    });
+    
+  }
+}
+
+
+export async function deleteVehicle(id){
+  try {
+    const [result] = await pool.query('DELETE FROM vehicles WHERE id = ?', [id])
+
+    if(!result){
+      throw new Error("Vehicle not found")
+    }
+
+    return result[0]
+    
+  } catch (error) {
+    console.error(error)
+
   }
 }

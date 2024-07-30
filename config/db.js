@@ -5,7 +5,7 @@ import mysql from 'mysql2/promise';
     user: 'root',
     database: 'logistic_database',
     port: 3306,
-    password: '',
+    password: 'damian45d5',
   });
   
  async function getConnection() {

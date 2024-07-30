@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllShipments,createdShipmentRequest,getShipmentByIdRequest} from "../controllers/shipmentsController.js";
+import { getAllShipments,createdShipmentRequest,getShipmentByIdRequest,deleteShipmentRequest} from "../controllers/shipmentsController.js";
 
 const shipmentsRouter = Router()
  
@@ -7,8 +7,8 @@ const shipmentsRouter = Router()
 
 shipmentsRouter.get('/', getAllShipments)
 shipmentsRouter.get('/:id', getShipmentByIdRequest)
-
 shipmentsRouter.post('/',createdShipmentRequest )
+shipmentsRouter.delete('/:id', deleteShipmentRequest)
 
 
 export default shipmentsRouter;

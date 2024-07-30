@@ -19,18 +19,20 @@ export async function createDriver(driver) {
       throw new Error('Warehouse does not exist')
     }
 
-    const createdDriver = await pool.query(
+    const [result] = await pool.query(
       "INSERT INTO drivers (name,warehouse_id) VALUES (?,?)",
       [driver.name, driver.warehouse_id]
     );
 
-    return createdDriver;
+    const newDriverId = result.insertId
+
+    const [newDriver] = await pool.query('SELECT * FROM drivers WHERE id = ?', [newDriverId])
+
+    return newDriver[0]
+    
   } catch (error) {
     console.error(error);
-    res.status(500).json({
-      error: error.sqlMessage,
-      errno: error.errno,
-    });
+    throw new Error('Error creation of driver')
   }
 }
 
@@ -42,4 +44,21 @@ export async function findDriver(id){
   } catch (error) {
     console.log(error);
   }
+}
+
+export async function deleteDriver(id){
+  try {
+
+    const [result] = await pool.query('DELETE FROM drivers WHERE id = ?', [id])
+
+    if(!result){
+      throw new Error("Driver does not exist.")
+    }
+    return result
+    
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error while deleting driver.");
+  }
+
 }

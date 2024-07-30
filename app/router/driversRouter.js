@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllDrivers, createdDriverRequest,getDriverRequest } from "../controllers/driversController.js";
+import { getAllDrivers, createdDriverRequest,getDriverRequest, deleteDriverRequest} from "../controllers/driversController.js";
 
 const driversRoutes = Router()
 
@@ -8,6 +8,7 @@ const driversRoutes = Router()
 driversRoutes.get('/', getAllDrivers)
 driversRoutes.get('/:id', getDriverRequest)
 driversRoutes.post('/', createdDriverRequest)
+driversRoutes.delete('/:id', deleteDriverRequest)
 
 
 
